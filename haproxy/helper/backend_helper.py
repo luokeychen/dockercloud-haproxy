@@ -16,16 +16,17 @@ def get_backend_section(details, routes, vhosts, service_alias, routes_added):
     route_health_check = get_route_health_check(details, service_alias, HEALTH_CHECK)
     extra_route_settings = get_extra_route_settings(details, service_alias, EXTRA_ROUTE_SETTINGS)
     route_setting = " ".join([route_health_check, extra_route_settings]).strip()
-    backend_routes = get_backend_routes(route_setting, is_sticky, routes, routes_added, service_alias)
+    backend_routes = get_backend_routes(route_setting, is_sticky, routes, routes_added, service_alias, details)
     backend.extend(backend_routes)
 
     return backend
 
 
-def get_backend_routes(route_setting, is_sticky, routes, routes_added, service_alias):
+def get_backend_routes(route_setting, is_sticky, routes, routes_added, service_alias, details):
     backend_routes = []
     for _service_alias, routes in routes.iteritems():
         if not service_alias or _service_alias == service_alias:
+            service_details = details[_service_alias]
             addresses_added = []
             for route in routes:
                 # avoid adding those tcp routes adding http backends
@@ -40,6 +41,9 @@ def get_backend_routes(route_setting, is_sticky, routes, routes_added, service_a
 
                     if route_setting:
                         backend_route.append(route_setting)
+
+                    if 'failover' in service_details and service_details['failover']:
+                        backend_route.append("backup")
 
                     backend_routes.append(" ".join(backend_route))
 
