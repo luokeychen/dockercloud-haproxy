@@ -80,7 +80,7 @@ def get_backend_settings(details, service_alias, basic_auth):
     backend_settings.extend(get_hsts_max_age_setting(details, service_alias))
     backend_settings.extend(get_options_setting(details, service_alias))
     backend_settings.extend(get_extra_settings_setting(details, service_alias))
-    backend_settings.extend(get_basic_auth_setting(basic_auth))
+    backend_settings.extend(get_basic_auth_setting(details, basic_auth, service_alias))
 
     return backend_settings, is_sticky
 
@@ -163,9 +163,11 @@ def get_extra_settings_setting(details, service_alias):
     return setting
 
 
-def get_basic_auth_setting(basic_auth):
+def get_basic_auth_setting(details, basic_auth, service_alias):
     setting = []
-    if basic_auth:
+    exclude_basic_auth = get_service_attribute(details, "exclude_basic_auth", service_alias)
+
+    if basic_auth and exclude_basic_auth == None:
         setting.append("acl need_auth http_auth(haproxy_userlist)")
         setting.append("http-request auth realm haproxy_basic_auth if !need_auth")
     return setting

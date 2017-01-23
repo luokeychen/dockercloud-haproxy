@@ -199,7 +199,11 @@ class BackendHelperTestCase(unittest.TestCase):
         self.assertEqual([], get_extra_settings_setting(details, 'web-f'))
 
     def test_get_basic_auth_setting(self):
+        details = {'web-a': {'exclude_basic_auth': 'true'},
+                   'web-b': {}}
+
+        self.assertEqual([], get_basic_auth_setting(details, 'something', 'web-a'))
         self.assertEqual(
             ["acl need_auth http_auth(haproxy_userlist)", "http-request auth realm haproxy_basic_auth if !need_auth"],
-            get_basic_auth_setting('something'))
-        self.assertEqual([], get_basic_auth_setting(""))
+            get_basic_auth_setting(details, 'something', 'web-b'))
+        self.assertEqual([], get_basic_auth_setting(details, "", 'web-b'))
