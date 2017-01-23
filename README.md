@@ -214,6 +214,7 @@ Settings in this part is immutable, you have to redeploy HAProxy service to make
 |FORCE_DEFAULT_BACKEND| True | set the default_service as a default backend. This is useful when you have more than one backend and you don't want your default_service as a default backend    
 |HEALTH_CHECK|check|set health check on each backend route, possible value: "check inter 2000 rise 2 fall 3". See:[HAProxy:check](https://cbonte.github.io/haproxy-dconv/configuration-1.5.html#5.2-check)|
 |HTTP_BASIC_AUTH| |a comma-separated list of credentials(`<user>:<pass>`) for HTTP basic auth, which applies to all the backend routes. To escape comma, use `\,`. *Attention:* DO NOT rely on this for authentication in production|
+|HTTP_BASIC_AUTH_SECURE| |a comma-separated list of credentials(`<user>:<encrypted-pass>`) for HTTP basic auth, which applies to all the backend routes. To escape comma, use `\,`. See:[HAProxy:user](https://cbonte.github.io/haproxy-dconv/1.5/configuration.html#3.4-user) *Attention:* DO NOT rely on this for authentication in production|
 |MAXCONN|4096|sets the maximum per-process number of concurrent connections.|
 |MODE|http|mode of load balancing for HAProxy. Possible values include: `http`, `tcp`, `health`|
 |MONITOR_PORT| |the port number where monitor_uri should be added to. Use together with `MONTIOR_URI`. Possible value: `80`|
