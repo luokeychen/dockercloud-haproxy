@@ -16,12 +16,12 @@ class SpecsTestCase(unittest.TestCase):
                                   'gzip_compression_type': None, 'http_check': None, 'virtual_host_weight': 0,
                                   'health_check': None, 'cookie': None, 'virtual_host': 'a.com', 'force_ssl': None,
                                   'tcp_ports': [], 'balance': None, 'extra_settings': None, 'appsession': None,
-                                  'option': [], "extra_route_settings": None},
+                                  'option': [], "extra_route_settings": None, "failover": None},
                         'HELLO': {'default_ssl_cert': '', 'ssl_cert': '', 'exclude_ports': [], 'hsts_max_age': None,
                                   'gzip_compression_type': None, 'http_check': None, 'virtual_host_weight': 0,
                                   'health_check': None, 'cookie': None, 'virtual_host': 'b.com', 'force_ssl': None,
                                   'tcp_ports': [], 'balance': None, 'extra_settings': None, 'appsession': None,
-                                  'option': [], "extra_route_settings": None}}
+                                  'option': [], "extra_route_settings": None, "failover": None}}
         self.routes = {'WORLD': [{'container_name': 'WORLD_1', 'proto': 'tcp', 'port': '80', 'addr': '10.7.0.3'}],
                        'HELLO': [{'container_name': 'HELLO_1', 'proto': 'tcp', 'port': '80', 'addr': '10.7.0.1'}]}
         self.vhosts = [{'path': '', 'host': 'a.com', 'scheme': 'http', 'port': '80', 'service_alias': 'WORLD'},
@@ -70,12 +70,12 @@ class SpecsTestCase(unittest.TestCase):
                                    'gzip_compression_type': None, 'http_check': None, 'virtual_host_weight': 0,
                                    'health_check': None, 'cookie': None, 'virtual_host': None, 'force_ssl': None,
                                    'tcp_ports': [], 'balance': None, 'extra_settings': None, 'appsession': None,
-                                   'option': [], "extra_route_settings": None},
+                                   'option': [], "extra_route_settings": None, "failover": None},
                          'HELLO': {'default_ssl_cert': '', 'ssl_cert': '', 'exclude_ports': [], 'hsts_max_age': None,
                                    'gzip_compression_type': None, 'http_check': None, 'virtual_host_weight': 0,
                                    'health_check': None, 'cookie': None, 'virtual_host': None, 'force_ssl': None,
                                    'tcp_ports': [], 'balance': None, 'extra_settings': None, 'appsession': None,
-                                   'option': [], "extra_route_settings": None}}
+                                   'option': [], "extra_route_settings": None, "failover": None}}
         self.assertEqual({}, specs._parse_details([], {}))
         self.assertEqual(empty_details, specs._parse_details(self.service_aliases, {}))
         self.assertEqual({}, specs._parse_details([], self.envvars))

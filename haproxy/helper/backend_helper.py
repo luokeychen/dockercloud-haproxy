@@ -26,7 +26,6 @@ def get_backend_routes(route_setting, is_sticky, routes, routes_added, service_a
     backend_routes = []
     for _service_alias, routes in routes.iteritems():
         if not service_alias or _service_alias == service_alias:
-            service_details = details[_service_alias]
             addresses_added = []
             for route in routes:
                 # avoid adding those tcp routes adding http backends
@@ -42,7 +41,7 @@ def get_backend_routes(route_setting, is_sticky, routes, routes_added, service_a
                     if route_setting:
                         backend_route.append(route_setting)
 
-                    if 'failover' in service_details and service_details['failover']:
+                    if details.get(service_alias, {}).get('failover', False):
                         backend_route.append("backup")
 
                     backend_routes.append(" ".join(backend_route))

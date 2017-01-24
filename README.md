@@ -243,7 +243,7 @@ Settings here can overwrite the settings in HAProxy, which are only applied to t
 |EXCLUDE_PORTS|if set(any value) and `HTTP_BASIC_AUTH` global setting is set, no basic auth will be applied to this service.|
 |EXTRA_ROUTE_SETTINGS|a string which is append to the each backend route after the health check,possible value: "send-proxy"|
 |EXTRA_SETTINGS|comma-separated string of extra settings, and each part will be appended to either related backend section or listen session in the configuration file. To escape comma, use `\,`. Possible value: `balance source`|
-|FAILOVER|boolean setting that configures this service to be run as HAProxy `backup` for other configured service(s) in this backend|
+|FAILOVER|if set(any value), it configures this service to be run as HAProxy `backup` for other configured service(s) in this backend|
 |FORCE_SSL|if set(any value) together with ssl termination enabled. HAProxy will redirect HTTP request to HTTPS request.
 |GZIP_COMPRESSION_TYPE|enable gzip compression. The value of this envvar is a list of MIME types that will be compressed. Some possible values: `text/html text/plain text/css application/javascript`. See:[HAProxy:compression](http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#4-compression)|
 |HEALTH_CHECK|set health check on each backend route, possible value: "check inter 2000 rise 2 fall 3". See:[HAProxy:check](https://cbonte.github.io/haproxy-dconv/configuration-1.5.html#5.2-check)|

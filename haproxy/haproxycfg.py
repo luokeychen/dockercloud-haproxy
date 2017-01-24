@@ -305,10 +305,10 @@ class Haproxy(object):
         return userlist
 
     @staticmethod
-    def _config_userlist_section(self, basic_auth, basic_auth_secure):
+    def _config_userlist_section(basic_auth, basic_auth_secure):
         cfg = OrderedDict()
-        userlist = self._parse_userlist(basic_auth, "insecure-password") + \
-            self._parse_userlist(basic_auth_secure, "password")
+        userlist = Haproxy._parse_userlist(basic_auth, "insecure-password") + \
+                   Haproxy._parse_userlist(basic_auth_secure, "password")
         if userlist:
             cfg["userlist haproxy_userlist"] = userlist
         return cfg
